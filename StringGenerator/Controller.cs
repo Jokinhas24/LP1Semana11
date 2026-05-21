@@ -9,9 +9,8 @@ namespace StringGenerator
 {
     public class Controller
     {
-        private readonly string chars;
-        private readonly int seed;
-        public Controller(int seed)
+        private readonly string seed;
+        public Controller(string seed)
         {
             // Keep the player list (part of the model)
             this.seed = seed;
@@ -32,7 +31,15 @@ namespace StringGenerator
         }
         public void Run(View view)
         {
-            view.Output(Generate(seed));
+            switch (true)
+            {
+                case true:
+                    view.Output(Generate(int.Parse(seed)));
+                    break;
+                default:
+                    view.Exit();
+                    break;
+            }
         }
     }
 }

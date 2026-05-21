@@ -11,5 +11,9 @@ namespace StringGenerator
         {
             Console.WriteLine(output);
         }
+        public void Exit()
+        {
+            Console.WriteLine("Nope");
+        }
     }
 }
