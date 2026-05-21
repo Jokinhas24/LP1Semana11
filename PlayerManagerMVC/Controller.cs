@@ -36,12 +36,15 @@ namespace PlayerManagerMVC
                         InsertPlayer(view);
                         break;
                     case "2":
-                        ListPlayers(playerList);
+                        view.ListPlayers(playerList);
                         break;
                     case "3":
-                        view.ListPlayersWithScoreGreaterThan();
+                        ListPlayersWithScoreGreaterThan(view);
                         break;
                     case "4":
+                        SortPlayerList(view);
+                        break;
+                    case "0":
                         view.ExitMessage();
                         break;
                     default:
@@ -71,47 +74,6 @@ namespace PlayerManagerMVC
             view.InsertMessage("Player");
         }
         /// <summary>
-        /// Show all players in a list of players. This method can be static
-        /// because it doesn't depend on anything associated with an instance
-        /// of the program. Namely, the list of players is given as a parameter
-        /// to this method.
-        /// </summary>
-        /// <param name="playersToList">
-        /// An enumerable object of players to show.
-        /// </param>
-        private static void ListPlayers(IEnumerable<Player> playersToList)
-        {
-            Console.WriteLine("\nDo you wish to order by alphabetic order?");
-            Console.WriteLine("IF so Press '1' for ascending or '2' for descending: ");
-            Console.WriteLine("(Leave empty to order by score)");
-            Console.Write("\nYour option: ");
-            PlayerOrder option = Console.ReadLine();
-            view.AskPlayerOrder();
-
-            var list = playersToList.ToList();
-
-            if (option == PlayerOrder.ByScore)
-            {
-                list.Sort();
-            }
-            else if (option == PlayerOrder.ByName)
-            {
-                IComparer<Player> compareByName = new CompareByName(true);
-                list.Sort(compareByName);
-            }
-            else if (option == PlayerOrder.ByNameReverse)
-            {
-                IComparer<Player> compareByNameReverse = new CompareByName(false);
-                list.Sort(compareByNameReverse);
-            }
-
-            Console.WriteLine("\nListing Players...\n");
-            foreach (Player p in list)
-            {
-                Console.WriteLine($"- Name: {p.Name} --> Score: {p.Score}");
-            }
-        }
-        /// <summary>
         /// Show all players with a score higher than a user-specified value.
         /// </summary>
         private void ListPlayersWithScoreGreaterThan(IView view)
@@ -119,7 +81,7 @@ namespace PlayerManagerMVC
             Console.Write("\n...higher than: ");
             int minScore = view.AskMinScore();
 
-            ListPlayers(GetPlayersWithScoreGreaterThan(minScore));
+            view.ListPlayers(GetPlayersWithScoreGreaterThan(minScore));
         }
         /// <summary>
         /// Get players with a score higher than a given value.
@@ -136,6 +98,26 @@ namespace PlayerManagerMVC
                 {
                     yield return player;
                 }
+            }
+        }
+        private void SortPlayerList(IView view)
+        {
+            PlayerOrder playerOrder = view.AskPlayerOrder();
+
+            switch (playerOrder)
+            {
+                case PlayerOrder.ByScore:
+                    playerList.Sort();
+                    break;
+                case PlayerOrder.ByName:
+                    playerList.SortByName();
+                    break;
+                case PlayerOrder.ByNameReverse:
+                    playerList.SortByNameReverse();
+                    break;
+                default:
+                    view.ErrorMessage("Unknown player order!");
+                    break;
             }
         }
     }

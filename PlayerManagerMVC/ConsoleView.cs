@@ -24,6 +24,7 @@ namespace PlayerManagerMVC
             Console.WriteLine("Press '1' to Insert a new Player;");
             Console.WriteLine("Press '2' to List all Players;");
             Console.WriteLine("Press '3' to Show Players with scores higher than...;");
+            Console.WriteLine("Press '4' to Order Players;");
             Console.WriteLine("Press '4' to Quit.\n");
             Console.Write("Your option: ");
         }
@@ -59,17 +60,10 @@ namespace PlayerManagerMVC
         {
             Console.WriteLine($"\nInserting New {Inserter}...");
         }
-        public PlayerOrder AskPlayerOrder()
-        {
-            Console.WriteLine("\nDo you wish to order by alphabetic order?");
-            Console.WriteLine("IF so Press '1' for ascending or '2' for descending: ");
-            Console.WriteLine("(Leave empty to order by score)");
-            Console.Write("\nYour option: ");
-            PlayerOrder option = Console.ReadLine();
-        }
         public int AskMinScore()
         {
-            Console.Write("\n...higher than: ");
+            // Ask the user what is the minimum score
+            Console.Write("\n... greater than: ");
             return int.Parse(Console.ReadLine());
         }
         /// <summary>
@@ -81,26 +75,9 @@ namespace PlayerManagerMVC
         /// <param name="playersToList">
         /// An enumerable object of players to show.
         /// </param> 
-        private static void ListPlayers(IEnumerable<Player> playersToList)
+        public void ListPlayers(IEnumerable<Player> playersToList)
         {
-            PlayerOrder option = AskPlayerOrder();
-
             var list = playersToList.ToList();
-            // Aqui fazer Case 
-
-            if (option == PlayerOrder.ByScore)
-            {
-                list.Sort();
-            }
-            else if (option == PlayerOrder.ByName)
-            {
-                list.Sort(compareByName);
-            }
-            else if (option == PlayerOrder.ByNameReverse)
-            {
-                list.Sort(compareByNameReverse);
-            }
-            //default or something
 
             Console.WriteLine("\nListing Players...\n");
             foreach (Player p in list)
@@ -110,11 +87,19 @@ namespace PlayerManagerMVC
         }
         public PlayerOrder AskPlayerOrder()
         {
-            Console.WriteLine("\nDo you wish to order by alphabetic order?");
-            Console.WriteLine("IF so Press '1' for ascending or '2' for descending: ");
-            Console.WriteLine("(Leave empty to order by score)");
-            Console.Write("\nYour option: ");
-            Console.ReadLine();
+            //default or something
+            Console.WriteLine("\nPlayer order");
+            Console.WriteLine("------------");
+            Console.WriteLine(
+                $"{(int)PlayerOrder.ByScore}. Order by score");
+            Console.WriteLine(
+                $"{(int)PlayerOrder.ByName}. Order by name");
+            Console.WriteLine(
+                $"{(int)PlayerOrder.ByNameReverse}. Order by name (reverse)");
+            Console.WriteLine("");
+            Console.Write("> ");
+
+            return Enum.Parse<PlayerOrder>(Console.ReadLine());
         }
     }
 }

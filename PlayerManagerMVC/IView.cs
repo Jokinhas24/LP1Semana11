@@ -11,11 +11,12 @@ namespace PlayerManagerMVC
         void ShowMenu();
         void Welcome();
         void ExitMessage();
-        void ErrorMessage();
+        void ErrorMessage(string msg);
         void WaitForUser();
         (string, int) AskPlayerData();
-        int AskMinScore();
         void InsertMessage(string Inserter);
+        int AskMinScore();
         void ListPlayers(IEnumerable<Player> playersToList);
+        PlayerOrder AskPlayerOrder();
     }
 }
