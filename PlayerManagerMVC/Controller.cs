@@ -9,9 +9,11 @@ namespace PlayerManagerMVC
 {
     public class Controller
     {
+        // The player list (part of the Model)
         private readonly PlayerList playerList;
         public Controller(PlayerList playerList)
         {
+            // Keep the player list (part of the model)
             this.playerList = playerList;
         }
         /// <summary>
@@ -53,13 +55,13 @@ namespace PlayerManagerMVC
                 }
 
                 // Wait for user to press a key...  
-                if (option != "4")
+                if (option != "0")
                 {
                     view.WaitForUser();
                 }
 
                 // Loop keeps going until players choses to quit (option 4)
-            } while (option != "4");
+            } while (option != "0");
         }
         /// <summary>
         /// Inserts a new player in the player list.
@@ -78,7 +80,6 @@ namespace PlayerManagerMVC
         /// </summary>
         private void ListPlayersWithScoreGreaterThan(IView view)
         {
-            Console.Write("\n...higher than: ");
             int minScore = view.AskMinScore();
 
             view.ListPlayers(GetPlayersWithScoreGreaterThan(minScore));

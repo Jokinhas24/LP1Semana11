@@ -11,43 +11,25 @@ namespace PlayerManagerMVC
     public class Program
     {
         /// <summary>
-        /// The list of all players.
-        /// </summary>
-        private PlayerList playerList;
-        private IView view;
-        /// <summary>
         /// Program begins here.
         /// </summary>
+        /// <param name="args">Not used.</param>
         private static void Main()
         {
-            // Create a new instance of the player listing program
-            Program prog = new Program();
-
-            IView view = new ConsoleView(controller, model);
-        }
-
-        /// <summary>
-        /// Creates a new instance of the player listing program.
-        /// </summary>
-        private Program()
-        {
-            // Instantialize player comparers
-            IComparer<Player> compareByName = new CompareByName(true);
-            IComparer<Player> compareByNameReverse = new CompareByName(false);
-
             // Initialize the player list with two players using collection
             // initialization syntax
-            playerList = new PlayerList() {
+            PlayerList playerList = new PlayerList() {
                 new Player("Best player ever", 100),
                 new Player("An even better player", 500),
                 new Player("Freddy", 125),
                 new Player("Chica", 200),
                 new Player("Daniel", 150)
             };
-            // Instantiate Controller
-            Controller controller = new controller;
 
-            view = new ConsoleView(controller);
+            IView view = new ConsoleView();
+
+            // Instantiate Controller
+            Controller controller = new Controller(playerList);
 
             // Start the program instance
             controller.Run(view);

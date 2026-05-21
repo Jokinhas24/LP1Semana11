@@ -7,10 +7,6 @@ namespace PlayerManagerMVC
 {
     public class ConsoleView : IView
     {
-        public ConsoleView(Controller controller)
-        {
-            
-        }
         public string Input()
         {
             return Console.ReadLine();
@@ -25,7 +21,7 @@ namespace PlayerManagerMVC
             Console.WriteLine("Press '2' to List all Players;");
             Console.WriteLine("Press '3' to Show Players with scores higher than...;");
             Console.WriteLine("Press '4' to Order Players;");
-            Console.WriteLine("Press '4' to Quit.\n");
+            Console.WriteLine("Press '0' to Quit.\n");
             Console.Write("Your option: ");
         }
         public void Welcome()
@@ -63,7 +59,7 @@ namespace PlayerManagerMVC
         public int AskMinScore()
         {
             // Ask the user what is the minimum score
-            Console.Write("\n... greater than: ");
+            Console.Write("\n... higher than: ");
             return int.Parse(Console.ReadLine());
         }
         /// <summary>
