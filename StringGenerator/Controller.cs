@@ -39,7 +39,6 @@ namespace StringGenerator
             {
                 view.Exit();
             }
-            aaaaaaaa
         }
     }
 }
