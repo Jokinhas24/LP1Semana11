@@ -31,14 +31,13 @@ namespace StringGenerator
         }
         public void Run(View view)
         {
-            switch (true)
+            try
             {
-                case true:
-                    view.Output(Generate(int.Parse(seed)));
-                    break;
-                default:
-                    view.Exit();
-                    break;
+                view.Output(Generate(int.Parse(seed)));
+            }
+            catch (Exception)
+            {
+                view.Exit();
             }
         }
     }
